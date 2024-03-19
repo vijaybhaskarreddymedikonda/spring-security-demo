@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
         final String name = authentication.getName();
         final String password = authentication.getCredentials().toString();
         System.out.println("Username " + name + " password " + password + " in CustomAuthManager");
-        if (!"superuser".equals(name) || !"koala".equals(password)) {
+        if (!"superuser".equals(name) || !"superpassword".equals(password)) {
             throw new BadCredentialsException("Unable to validate the userid/password combination!");
         }
         UsernamePasswordAuthenticationToken username = authenticateAgainstThirdPartyAndGetAuthentication(name, password);
